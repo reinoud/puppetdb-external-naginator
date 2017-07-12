@@ -257,6 +257,7 @@ def mailTextBody(nagiosMappings):
     for displayString, envVar in nagiosMappings.iteritems():
         body += "%s: %s\n" % (displayString, getSingleEnvVar(envVar))
     body += "\nAdditional Info:\n\n%s\n" % getSingleEnvVar('NAGIOS_SERVICEOUTPUT')
+    body += "\n%s\n" % getSingleEnvVar('NAGIOS_LONGSERVICEOUTPUT')
     return body
 
 
@@ -289,6 +290,7 @@ def mailHtmlBody(logger, graphUrls, companyBgColor, companyFgcolor, companyName,
         body += '<tr><td>%s: </td><td align="left">%s</td></tr>\n' % (displayString, displayVar)
     body += '<tr><td>Additional info: </td><td>&nbsp;</td></tr>\n'
     body += '<tr><td colspan="2">%s</td></tr>\n' % getSingleEnvVar('NAGIOS_SERVICEOUTPUT')
+    body += '<tr><td colspan="2">%s</td></tr>\n' % getSingleEnvVar('NAGIOS_LONGSERVICEOUTPUT')
     for num, graph_url in enumerate(graphUrls):
         try:
             title = re.search('\?title=(.*?)(&|__AMPERSAND__)', graph_url).group(1).replace('+', ' ')
